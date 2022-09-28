@@ -24,17 +24,8 @@ parser.add_argument("--modelname", type=str,
                     help="Model name")
 parser.add_argument("--lr", type=float,
                     dest="lr", default=1e-4, help="learning rate")
-parser.add_argument("--iteration", type=int,
-                    dest="iteration", default=20001,
-                    help="number of total iterations")
-parser.add_argument("--iteration_lvl1", type=int,
-                    dest="iteration_lvl1", default=30001,
-                    help="number of lvl1 iterations")
-parser.add_argument("--iteration_lvl2", type=int,
-                    dest="iteration_lvl2", default=30001,
-                    help="number of lvl2 iterations")
 parser.add_argument("--iteration_lvl3", type=int,
-                    dest="iteration_lvl3", default=90001,
+                    dest="iteration_lvl3", default=130001,
                     help="number of lvl3 iterations")
 parser.add_argument("--antifold", type=float,
                     dest="antifold", default=0.,
@@ -398,7 +389,6 @@ if __name__ == '__main__':
     opt = parser.parse_args()
 
     lr = opt.lr
-    iteration = opt.iteration
     start_channel = opt.start_channel
     antifold = opt.antifold
     # grad_sim = opt.grad_sim
@@ -410,8 +400,6 @@ if __name__ == '__main__':
     occ = opt.occ
     inv_con = opt.inv_con
 
-    iteration_lvl1 = opt.iteration_lvl1
-    iteration_lvl2 = opt.iteration_lvl2
     iteration_lvl3 = opt.iteration_lvl3
 
     model_name = opt.modelname
