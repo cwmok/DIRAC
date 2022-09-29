@@ -21,7 +21,7 @@ from bratsreg_model_stage import Miccai2021_LDR_laplacian_unit_disp_add_AdaIn_t1
 parser = ArgumentParser()
 parser.add_argument("--modelname", type=str,
                     dest="modelname",
-                    default='Brats_NCC_disp_fea6b5_AdaIn64_t1cet2_fbcon_occ01_inv5_a0015_aug_mean_fffixed_github_',
+                    default='Brats_NCC_disp_fea6b5_AdaIn64_t1cet2_fbcon_occ01_inv1_a0015_aug_mean_fffixed_github_',
                     help="Model name")
 parser.add_argument("--lr", type=float,
                     dest="lr", default=1e-4, help="learning rate")
@@ -35,7 +35,7 @@ parser.add_argument("--occ", type=float,
                     dest="occ", default=0.01,
                     help="Mask loss: suggested range 0.01 to 1")
 parser.add_argument("--inv_con", type=float,
-                    dest="inv_con", default=0.5,
+                    dest="inv_con", default=0.1,
                     help="Inverse consistency loss: suggested range 1 to 10")
 # parser.add_argument("--grad_sim", type=float,
 #                     dest="grad_sim", default=0.1,
