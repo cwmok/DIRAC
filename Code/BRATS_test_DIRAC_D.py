@@ -32,7 +32,7 @@ parser.add_argument("--num_cblock", type=int,
                     dest="num_cblock", default=5,
                     help="Number of conditional block")
 parser.add_argument("--output_seg", type=bool,
-                    dest="output_seg", default=False,
+                    dest="output_seg", default=True,
                     help="True: save segmentation map")
 
 
@@ -134,10 +134,10 @@ def test():
             F_X_Y = F.interpolate(F_X_Y, size=ori_img_shape, mode='trilinear', align_corners=True)
             F_Y_X = F.interpolate(F_Y_X, size=ori_img_shape, mode='trilinear', align_corners=True)
 
-            if output_seg:
-                grid_unit = generate_grid_unit(ori_img_shape)
-                grid_unit = torch.from_numpy(np.reshape(grid_unit, (1,) + grid_unit.shape)).cuda().float()
+            grid_unit = generate_grid_unit(ori_img_shape)
+            grid_unit = torch.from_numpy(np.reshape(grid_unit, (1,) + grid_unit.shape)).cuda().float()
 
+            if output_seg:
                 F_X_Y_warpped = transform(F_X_Y, F_Y_X.permute(0, 2, 3, 4, 1), grid_unit)
                 F_Y_X_warpped = transform(F_Y_X, F_X_Y.permute(0, 2, 3, 4, 1), grid_unit)
 
