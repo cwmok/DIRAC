@@ -389,10 +389,10 @@ def train():
                 with open(log_dir, "a") as log:
                     log.write(str(step) + ":" + str(tre_total.mean()) + "\n")
 
-            if step == freeze_step:
-                model.unfreeze_modellvl2()
-                # num_param = sum(p.numel() for p in model.parameters() if p.requires_grad)
-                # print("\nmodel_lvl2_num_param_requires_grad: ", num_param)
+            # if step == freeze_step:
+            #     model.unfreeze_modellvl2()
+            #     # num_param = sum(p.numel() for p in model.parameters() if p.requires_grad)
+            #     # print("\nmodel_lvl2_num_param_requires_grad: ", num_param)
 
             step += 1
 
