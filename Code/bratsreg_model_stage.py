@@ -896,7 +896,8 @@ class AdaptiveInstanceNorm(nn.Module):
 
         self.style = nn.Linear(latent_dim, in_channel * 2)
 
-        self.style.bias.data[:in_channel] = 1
+        # self.style.bias.data[:in_channel] = 1
+        self.style.bias.data[:in_channel] = 0
         self.style.bias.data[in_channel:] = 0
 
     def forward(self, input, latent_code):
