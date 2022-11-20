@@ -428,7 +428,7 @@ if __name__ == '__main__':
     log_dir = "../Log/" + model_name + ".txt"
 
     with open(log_dir, "a") as log:
-        log.write("Validation Dice log for " + model_name[0:-1] + ":\n")
+        log.write("Validation TRE log for " + model_name[0:-1] + ":\n")
 
     img_h, img_w, img_d = 160, 160, 80
     imgshape = (img_h, img_w, img_d)
