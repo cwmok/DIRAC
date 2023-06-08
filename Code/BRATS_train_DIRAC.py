@@ -251,6 +251,9 @@ def train():
             occ_xy = (smo_norm_diff_fw > thresh_fw).float()  # y mask
             occ_yx = (smo_norm_diff_bw > thresh_bw).float()  # x mask
 
+            occ_xy_l = F.relu(smo_norm_diff_fw - thresh_fw) * 1000.
+            occ_yx_l = F.relu(smo_norm_diff_bw - thresh_bw) * 1000.
+
             # mask occ
             occ_xy = occ_xy * fw_mask
             occ_yx = occ_yx * bw_mask
@@ -262,7 +265,7 @@ def train():
             loss_multiNCC = loss_similarity(X_Y, Y_4x, mask_xy) + loss_similarity(Y_X, X_4x, mask_yx)
 
             loss_inverse = torch.mean(norm_diff_fw * mask_xy) + torch.mean(norm_diff_bw * mask_yx)
-            loss_occ = torch.mean(occ_xy) + torch.mean(occ_yx)
+            loss_occ = torch.mean(occ_xy_l) + torch.mean(occ_yx_l)
 
             # F_X_Y_norm = transform_unit_flow_to_flow_cuda(F_X_Y.permute(0,2,3,4,1).clone())
             # loss_Jacobian = loss_Jdet(F_X_Y_norm, grid)
@@ -275,13 +278,7 @@ def train():
             norm_vector[0, 2, 0, 0, 0] = x
             loss_regulation = loss_smooth(F_X_Y * norm_vector) + loss_smooth(F_Y_X * norm_vector)
 
-            # b, c, x, y, z = F_xy.shape
-            # scale_flow = torch.Tensor([z, y, x]).cuda().reshape(1, 3, 1, 1, 1)
-            # loss_regulation = loss_smooth(F_xy*scale_flow)
-
-            loss = (
-                               1. - reg_code) * loss_multiNCC + reg_code * loss_regulation + occ * loss_occ + inv_con * loss_inverse
-            # loss = loss_multiNCC + smooth * loss_regulation
+            loss = (1. - reg_code) * loss_multiNCC + reg_code * loss_regulation + occ * loss_occ + inv_con * loss_inverse
 
             optimizer.zero_grad()  # clear gradients for this training step
             loss.backward()  # backpropagation, compute gradients

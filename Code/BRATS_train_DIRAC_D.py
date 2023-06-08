@@ -267,6 +267,9 @@ def train():
             occ_xy = occ_xy * fw_mask
             occ_yx = occ_yx * bw_mask
 
+            occ_xy_l = F.relu(smo_norm_diff_fw - thresh_fw) * 1000.
+            occ_yx_l = F.relu(smo_norm_diff_bw - thresh_bw) * 1000.
+
             mask_xy = 1. - occ_xy
             mask_yx = 1. - occ_yx
 
@@ -274,7 +277,7 @@ def train():
             loss_multiNCC = loss_similarity(X_Y, Y_4x, mask_xy) + loss_similarity(Y_X, X_4x, mask_yx)
 
             loss_inverse = torch.mean(norm_diff_fw * mask_xy) + torch.mean(norm_diff_bw * mask_yx)
-            loss_occ = torch.mean(occ_xy) + torch.mean(occ_yx)
+            loss_occ = torch.mean(occ_xy_l) + torch.mean(occ_yx_l)
 
             # F_X_Y_norm = transform_unit_flow_to_flow_cuda(F_X_Y.permute(0,2,3,4,1).clone())
             # loss_Jacobian = loss_Jdet(F_X_Y_norm, grid)
