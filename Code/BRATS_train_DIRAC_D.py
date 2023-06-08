@@ -267,8 +267,8 @@ def train():
             occ_xy = occ_xy * fw_mask
             occ_yx = occ_yx * bw_mask
 
-            occ_xy_l = F.relu(smo_norm_diff_fw - thresh_fw) * 1000.
-            occ_yx_l = F.relu(smo_norm_diff_bw - thresh_bw) * 1000.
+            occ_xy_l = F.relu(smo_norm_diff_fw - thresh_fw) * 100.
+            occ_yx_l = F.relu(smo_norm_diff_bw - thresh_bw) * 100.
 
             mask_xy = 1. - occ_xy
             mask_yx = 1. - occ_yx
