@@ -251,8 +251,8 @@ def train():
             occ_xy = (smo_norm_diff_fw > thresh_fw).float()  # y mask
             occ_yx = (smo_norm_diff_bw > thresh_bw).float()  # x mask
 
-            occ_xy_l = F.relu(smo_norm_diff_fw - thresh_fw) * 100.
-            occ_yx_l = F.relu(smo_norm_diff_bw - thresh_bw) * 100.
+            occ_xy_l = F.relu(smo_norm_diff_fw - thresh_fw) * 10.
+            occ_yx_l = F.relu(smo_norm_diff_bw - thresh_bw) * 10.
 
             # mask occ
             occ_xy = occ_xy * fw_mask
